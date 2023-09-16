@@ -1,0 +1,62 @@
+{
+    "0__mean0": {
+        "upper": 1.0,
+        "lower": 0.0,
+        "dtype": "float"
+    },
+    "0__mean1": {
+        "upper": 1.0,
+        "lower": 0.0,
+        "dtype": "float"
+    },
+    "0__mean2": {
+        "upper": 1.0,
+        "lower": 0.0,
+        "dtype": "float"
+    },
+    "0__std0": {
+        "upper": 1.0,
+        "lower": 0.0,
+        "dtype": "float"
+    },
+    "0__std1": {
+        "upper": 1.0,
+        "lower": 0.0,
+        "dtype": "float"
+    },
+    "0__std2": {
+        "upper": 1.0,
+        "lower": 0.0,
+        "dtype": "float"
+    },
+    "1__batch_size": {
+        "upper": 5,
+        "lower": 1,
+        "dtype": "int"
+    },
+    "1__max_lr": {
+        "upper": 0.05,
+        "lower": 0.0005,
+        "dtype": "float"
+    },
+    "1__weight_decay": {
+        "upper": 0.005,
+        "lower": 0.00005,
+        "dtype": "float"
+    },
+    "2__sdim": {
+        "upper": 8,
+        "lower": 1,
+        "dtype": "int"
+    },
+    "2__compat": {
+        "upper": 50,
+        "lower": 1,
+        "dtype": "int"
+    },
+    "2__gt_prob": {
+        "upper": 1.0,
+        "lower": 0.0,
+        "dtype": "float"
+    }
+}
