@@ -15,8 +15,8 @@ parser = ArgumentParser()
 parser.add_argument("--exp-name", type=str, required=True, help="Specifies a unique experiment name")
 parser.add_argument("--trial", type=int, help="The trial number", default=0)
 parser.add_argument("--acqf", type=str, help="Acquisition function", choices=["EEIPU", "EIPU", "EIPU-MEMO", "EI", "RAND"], default="EEIPU")
-parser.add_argument("--init-eta", type=float, help="Initial ETA", default=3)
-parser.add_argument("--decay-factor", type=float, help="Decay factor", default=1)
+parser.add_argument("--init-eta", type=float, help="Initial ETA", default=1)
+parser.add_argument("--decay-factor", type=float, help="Decay factor", default=0.95)
 parser.add_argument("--cache-root", type=Path, default=".cachestore", help="Cache directory")
 
 args, _ = parser.parse_known_args()
@@ -26,8 +26,8 @@ with open("segmentation/sampling-range.json") as f:
     hp_sampling_range = json.load(f)
     
 params = {
-    "decay_factor": 0.95,
-    "init_eta": 0.05,
+    # "decay_factor": 0.95,
+    # "init_eta": 0.05,
     "n_trials": 10,
     "n_iters": 40,
     "alpha": 9,
