@@ -79,7 +79,7 @@ class DroneDataset(Dataset):
     def __init__(self, img_path, mask_path, X, mean, std, transform=None, patch=False):
         self.img_path = img_path
         self.mask_path = mask_path
-        self.X = X[:10]
+        self.X = X
         self.transform = transform
         self.patches = patch
         self.mean = mean
