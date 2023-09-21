@@ -14,9 +14,9 @@ from segmentation import (  # Importing DroneDataset to prevent pickle error
 parser = ArgumentParser()
 parser.add_argument("--exp-name", type=str, required=True, help="Specifies a unique experiment name")
 parser.add_argument("--trial", type=int, help="The trial number", default=0)
-parser.add_argument("--acqf", type=str, help="Acquisition function", choices=["EEIPU", "EIPU", "EIPU-MEMO", "EI", "RAND"], default="EEIPU")
 parser.add_argument("--init-eta", type=float, help="Initial ETA", default=1)
 parser.add_argument("--decay-factor", type=float, help="Decay factor", default=0.95)
+parser.add_argument("--acqf", type=str, help="Acquisition function", choices=["EEIPU", "EIPS", "CArBO", "EI", "RAND"], default="EI")
 parser.add_argument("--cache-root", type=Path, default=".cachestore", help="Cache directory")
 
 args, _ = parser.parse_known_args()
@@ -42,6 +42,8 @@ params = {
     "use_pref_pool": 1,
     "verbose": 1,
     "rand_seed": 42,
+    "total_budget": 15000,
+    "budget_0": 7000
 }
 
 args_dict = deepcopy(vars(args))
@@ -56,24 +58,35 @@ wandb.init(
         config=params,
     )
 
-for i in range(params["n_iters"]):
+consumed_budget, total_budget, init_budget = 0, params['total_budget'], params['budget_0']
+i=0
+warmup = True
+while consumed_budget < total_budget:
     tic = time.time()
     
+    if consumed_budget > init_budget and warmup:
+        warmup = False
+        params['n_init_data'] = dataset.shape[0]
+
     new_hp_dict, logging_metadata = generate_hps(
         dataset,
         hp_sampling_range,
         iteration=i,
         params=params,
+        consumed_budget=consumed_budget,
         acq_type=args.acqf, 
     )
     
     score_miou, score_miou_crf, cost_per_stage = main(new_hp_dict)
     
+    consumed_budget += sum(cost_per_stage)
+
     dataset = update_dataset_new_run(dataset, new_hp_dict, cost_per_stage, score_miou_crf, logging_metadata["x_bounds"])
     
-    print(f"\n\n[{time.strftime('%Y-%m-%d-%H%M')}]    Iteration-{i} [acq_type: {args.acqf}] Trial No. #{args.trial} Runtime: {time.time()-tic}")
-    log_metrics(dataset, logging_metadata, verbose=params["verbose"])
-
+    print(f"\n\n[{time.strftime('%Y-%m-%d-%H%M')}]    Iteration-{i} [acq_type: {args.acqf}] Trial No. #{args.trial} Runtime: {time.time()-tic} Consumed Budget: {consumed_budget}")
+    eta = (total_budget - consumed_budget) / (total_budget - params['budget_0'])
+    log_metrics(dataset, logging_metadata, verbose=params["verbose"], iteration=i, trial=args.trial, acqf=args.acqf, eta=eta)
+    i += 1
 
 # Clean up cache
 shutil.rmtree(args.cache_root)
