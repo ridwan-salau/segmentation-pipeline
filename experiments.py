@@ -81,7 +81,7 @@ while consumed_budget < total_budget:
     
     consumed_budget += sum(cost_per_stage)
 
-    dataset = update_dataset_new_run(dataset, new_hp_dict, cost_per_stage, score_miou_crf, logging_metadata["x_bounds"])
+    dataset = update_dataset_new_run(dataset, new_hp_dict, cost_per_stage, score_miou_crf, logging_metadata["x_bounds"], args.acqf)
     
     print(f"\n\n[{time.strftime('%Y-%m-%d-%H%M')}]    Iteration-{i} [acq_type: {args.acqf}] Trial No. #{args.trial} Runtime: {time.time()-tic} Consumed Budget: {consumed_budget}")
     eta = (total_budget - consumed_budget) / (total_budget - params['budget_0'])
