@@ -66,7 +66,7 @@ while consumed_budget < total_budget:
     
     if consumed_budget > init_budget and warmup:
         warmup = False
-        params['n_init_data'] = dataset.shape[0]
+        params['n_init_data'] = len(dataset["y"])
 
     new_hp_dict, logging_metadata = generate_hps(
         dataset,
