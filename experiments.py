@@ -43,7 +43,7 @@ params = {
     "verbose": 1,
     "rand_seed": 42,
     "total_budget": 15000,
-    "budget_0": 7000
+    "budget_0": 300
 }
 
 args_dict = deepcopy(vars(args))
@@ -66,7 +66,7 @@ while consumed_budget < total_budget:
     
     if consumed_budget > init_budget and warmup:
         warmup = False
-        params['n_init_data'] = dataset.shape[0]
+        params['n_init_data'] = i + 0
 
     new_hp_dict, logging_metadata = generate_hps(
         dataset,
