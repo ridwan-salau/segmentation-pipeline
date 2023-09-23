@@ -43,7 +43,7 @@ params = {
     "verbose": 1,
     "rand_seed": 42,
     "total_budget": 15000,
-    "budget_0": 300
+    "budget_0": 7000
 }
 
 args_dict = deepcopy(vars(args))
