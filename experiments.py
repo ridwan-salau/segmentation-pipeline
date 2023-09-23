@@ -52,7 +52,7 @@ params.update(args_dict)
 wandb.init(
         entity="cost-bo",
         project="memoised-realworld-exp",
-        group=f"Stacking-{args.exp_name}|-acqf_{args.acqf}|-dec-fac_{args.decay_factor}"
+        group=f"{args.exp_name}|-acqf_{args.acqf}|-dec-fac_{args.decay_factor}"
                 f"|init-eta_{args.init_eta}",
         name=f"{time.strftime('%Y-%m-%d-%H%M')}-trial-number_{args.trial}",
         config=params,
