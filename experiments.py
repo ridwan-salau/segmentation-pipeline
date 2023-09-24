@@ -42,7 +42,7 @@ params = {
     "use_pref_pool": 1,
     "verbose": 1,
     "rand_seed": 42,
-    "total_budget": 15000,
+    "total_budget": 17000,
     "budget_0": 7000
 }
 
