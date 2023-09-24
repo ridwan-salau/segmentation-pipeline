@@ -48,7 +48,7 @@ params = {
 
 args_dict = deepcopy(vars(args))
 params.update(args_dict)
-date_now=f"{time.strftime('%Y-%m-%d-%H%M')}",
+date_now=f"{time.strftime('%Y-%m-%d-%H%M')}"
 
 wandb.init(
         entity="cost-bo",
