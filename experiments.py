@@ -48,13 +48,14 @@ params = {
 
 args_dict = deepcopy(vars(args))
 params.update(args_dict)
-    
+date_now=f"{time.strftime('%Y-%m-%d-%H%M')}",
+
 wandb.init(
         entity="cost-bo",
         project="memoised-realworld-exp",
         group=f"{args.exp_name}|-acqf_{args.acqf}|-dec-fac_{args.decay_factor}"
                 f"|init-eta_{args.init_eta}",
-        name=f"{time.strftime('%Y-%m-%d-%H%M')}-trial-number_{args.trial}",
+        name=f"{date_now}-trial-number_{args.trial}",
         config=params,
     )
 
@@ -85,7 +86,7 @@ while consumed_budget < total_budget:
     
     print(f"\n\n[{time.strftime('%Y-%m-%d-%H%M')}]    Iteration-{i} [acq_type: {args.acqf}] Trial No. #{args.trial} Runtime: {time.time()-tic} Consumed Budget: {consumed_budget}")
     eta = (total_budget - consumed_budget) / (total_budget - params['budget_0'])
-    log_metrics(dataset, logging_metadata, verbose=params["verbose"], iteration=i, trial=args.trial, acqf=args.acqf, eta=eta)
+    log_metrics(dataset, logging_metadata, args.exp_name, verbose=params["verbose"], iteration=i, trial=args.trial, acqf=args.acqf, eta=eta)
     i += 1
 
 # Clean up cache

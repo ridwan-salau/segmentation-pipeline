@@ -29,6 +29,8 @@ parser = ArgumentParser()
 parser.add_argument("--disable-cache", action="store_true", help="Disable cache")
 parser.add_argument("--cache-root", type=Path, default=".cachestore", help="Cache directory")
 parser.add_argument("--exp-name", type=str, required=True, help="Specifies a unique experiment name")
+parser.add_argument("--acqf", type=str, help="Acquisition function", choices=["EEIPU", "EIPS", "CArBO", "EI", "RAND"], default="EI")
+
 args, _ = parser.parse_known_args()
 print(time.ctime(), "Starting...")
 
@@ -36,7 +38,8 @@ epochs = 3
 
 cache = cachestore.Cache(
     f"segmentation_{args.exp_name}_cache",
-    disable=args.disable_cache,
+    # disable=args.disable_cache,
+    disable=args.acqf!="EEIPU", # Disable cache when acqf isn't EEIPU
     storage=cachestore.LocalStorage(args.cache_root)
 )
 
