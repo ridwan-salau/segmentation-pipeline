@@ -3,7 +3,7 @@ set -e
 
 ACQF_ARRAY=(EEIPU EI CArBO EIPS)
 
-c = 0
+c=0
 for trial in {1..10}; do
     DEVICE=0
     for acqf in ${ACQF_ARRAY[@]}; do
@@ -26,9 +26,9 @@ for trial in {1..10}; do
         fi
     done
 
-    if [ $trial -eq 4 ]; then
-        wait # Wait for the inner loop to complete before continuing
-    fi
+    # if [ $trial -eq 4 ]; then
+    #     wait # Wait for the inner loop to complete before continuing
+    # fi
 done
 
 wait
