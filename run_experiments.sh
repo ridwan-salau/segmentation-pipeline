@@ -1,10 +1,10 @@
 #! /bin/bash
 set -e
 
-ACQF_ARRAY=(EEIPU EI CArBO EIPS)
+ACQF_ARRAY=(EEIPU)
 
 c=0
-for trial in {1..10}; do
+for trial in {1..1}; do
     DEVICE=0
     for acqf in ${ACQF_ARRAY[@]}; do
         # acqf="EI"
