@@ -5,7 +5,7 @@ ACQF_ARRAY=(EEIPU)
 
 c=0
 for trial in {1..1}; do
-    DEVICE=0
+    DEVICE=1
     for acqf in ${ACQF_ARRAY[@]}; do
         # acqf="EI"
         ((c+=1))
